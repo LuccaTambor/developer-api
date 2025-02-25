@@ -15,7 +15,7 @@ public static class ProductTestData {
     /// - CreatedAt
     /// </summary>
     private static readonly Faker<Product> ProductFaker = new Faker<Product>()
-        .RuleFor(u => u.Description, f => f.Commerce.ProductDescription())
+        .RuleFor(u => u.Description, f => f.Commerce.ProductName())
         .RuleFor(u => u.Value, f => f.Random.Float(1.0f, 500.0f))
         .RuleFor(u => u.Cost, f => f.Random.Float(1.0f, 500.0f))
         .RuleFor(u => u.Status, f => f.PickRandom(ProductStatus.OutOfStock, ProductStatus.OnStock))
