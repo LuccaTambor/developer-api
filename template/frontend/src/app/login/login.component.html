@@ -1,0 +1,19 @@
+<div class="main">
+  <h2 class="title">Developer InBev Login</h2>
+  <div class="login">  
+    <p-floatlabel variant="on" class="login-input">
+      <input pInputText id="username" [(ngModel)]="username" autocomplete="off" />
+      <label for="username">Username</label>
+    </p-floatlabel>
+    <p-floatlabel variant="on" class="login-input">
+      <p-password [(ngModel)]="password" inputId="password" [feedback]="false"/>
+      <label for="password">Password</label>
+    </p-floatlabel>
+    <div class="actions">
+      <p-button label="Login" (onClick)="login()" />
+      <p-button label="Create user" variant="text" />
+    </div>   
+  </div>
+</div>
+
+
