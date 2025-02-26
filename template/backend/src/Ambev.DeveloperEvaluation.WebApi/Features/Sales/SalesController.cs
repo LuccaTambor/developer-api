@@ -1,4 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+﻿using Ambev.DeveloperEvaluation.Application.Sales.CancelSale;
+using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.UncancelSale;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -36,6 +38,48 @@ public class SalesController : BaseController {
         return Created(string.Empty, new ApiResponseWithData<CreateSaleResult> {
             Success = true,
             Message = "Sale created successfully",
+            Data = response
+        });
+    }
+
+    /// <summary>
+    /// Canceles a sale
+    /// </summary>
+    /// <param name="id">The identifier of the sale to be canceled</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The canceled sale details</returns>
+    [HttpPut]
+    [ProducesResponseType(typeof(ApiResponseWithData<CancelSaleResult>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [Route("cancel/{id:Guid}")]
+    public async Task<IActionResult> CancelSale(Guid id, CancellationToken cancellationToken) {
+        CancelSaleCommand request = new(id);
+        var response = await _mediator.Send(request, cancellationToken);
+
+        return Ok(new ApiResponseWithData<CancelSaleResult> {
+            Success = true,
+            Message = "Sale canceled successfully",
+            Data = response
+        });
+    }
+
+    /// <summary>
+    /// Uncanceles a sale
+    /// </summary>
+    /// <param name="id">The identifier of the sale to be uncanceled</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The uncanceled sale details</returns>
+    [HttpPut]
+    [ProducesResponseType(typeof(ApiResponseWithData<CancelSaleResult>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [Route("uncancel/{id:Guid}")]
+    public async Task<IActionResult> UncancelSale(Guid id, CancellationToken cancellationToken) {
+        UncancelSaleCommand request = new(id);
+        var response = await _mediator.Send(request, cancellationToken);
+
+        return Ok(new ApiResponseWithData<UncancelSaleResult> {
+            Success = true,
+            Message = "Sale uncanceled successfully",
             Data = response
         });
     }

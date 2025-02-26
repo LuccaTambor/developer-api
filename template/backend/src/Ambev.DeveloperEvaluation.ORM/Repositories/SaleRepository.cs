@@ -52,4 +52,17 @@ public class SaleRepository : ISaleRepository {
         await _context.SaveChangesAsync(cancellationToken);
         return true;
     }
+
+    /// <summary>
+    /// Updates a sale from the database
+    /// </summary>
+    /// <param name="sale"> The sale to be updated </param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The updated sale</returns>
+    public async Task<Sale> UpdateAsync(Sale sale, CancellationToken cancellationToken = default) {
+        sale.UpdatedAt = DateTime.UtcNow;
+        _context.Sales.Update(sale);
+        await _context.SaveChangesAsync(cancellationToken);
+        return sale;
+    }
 }
