@@ -1,6 +1,9 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CancelSale;
 using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
+using Ambev.DeveloperEvaluation.Application.Sales.GetSaleQuery;
 using Ambev.DeveloperEvaluation.Application.Sales.UncancelSale;
+using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Filters;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +14,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales;
 /// Controller for managing sales operations
 /// </summary>
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/sales")]
 public class SalesController : BaseController {
     private readonly IMediator _mediator;
 
@@ -21,6 +24,25 @@ public class SalesController : BaseController {
     /// <param name="mediator">The mediator instance</param>
     public SalesController(IMediator mediator) {
         _mediator = mediator;
+    }
+
+    /// <summary>
+    /// Get's the sales paginated
+    /// </summary>
+    /// <param name="_page">The page to be returned</param>
+    /// <param name="_size">The size of the pages</param>
+    /// <param name="_filter">the filter to be applied to the query</param>
+    /// <returns>The requested paginated sales</returns>
+    [HttpGet]
+    [ProducesResponseType(typeof(PaginatedList<Sale>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetPaged([FromQuery] int _page = 1, [FromQuery] int _size = 10, [FromQuery] string _sort = "number", [FromQuery] bool isDescending = false, [FromQuery] SaleFilter? _filter = null!) {
+        GetSaleQuery request = new() { Filter = _filter, SortBy = _sort, IsDescending = isDescending };
+
+        var query = await _mediator.Send(request);
+
+        var test = await PaginatedList<Sale>.CreateAsync(query, _page, _size);
+
+        return OkPaginated(test);
     }
 
     /// <summary>

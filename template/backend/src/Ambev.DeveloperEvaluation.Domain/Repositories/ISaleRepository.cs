@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Filters;
 
 namespace Ambev.DeveloperEvaluation.Domain.Repositories;
 public interface ISaleRepository {
@@ -33,4 +34,14 @@ public interface ISaleRepository {
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The updated sale</returns>
     Task<Sale> UpdateAsync(Sale sale, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Get's a <see cref="IQueryable{Sale}"/> with filtering and sorting
+    /// </summary>
+    /// <param name="sortBy">The property to sort the query by</param>
+    /// <param name="isDescending">If the query is to be sorted descending</param>
+    /// <param name="filter">The filter to be applied to the query</param>
+    /// <returns>The <see cref="IQueryable"/></returns>
+    IQueryable<Sale> GetQuery(string sortBy, bool isDescending = false, SaleFilter? filter = null);
+
 }

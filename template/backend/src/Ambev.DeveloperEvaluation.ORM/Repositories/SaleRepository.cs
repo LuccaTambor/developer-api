@@ -1,6 +1,9 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Filters;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Reflection;
 
 namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 
@@ -64,5 +67,32 @@ public class SaleRepository : ISaleRepository {
         _context.Sales.Update(sale);
         await _context.SaveChangesAsync(cancellationToken);
         return sale;
+    }
+
+    /// <summary>
+    /// Get's a <see cref="IQueryable{Sale}"/> with filtering and sorting
+    /// </summary>
+    /// <param name="sortBy">The property to sort the query by</param>
+    /// <param name="isDescending">If the query is to be sorted descending</param>
+    /// <param name="filter">The filter to be applied to the query</param>
+    /// <returns>The <see cref="IQueryable"/></returns>
+    public IQueryable<Sale> GetQuery(string sortBy, bool isDescending = false, SaleFilter? filter = null) {
+        var query = _context.Sales.AsQueryable();
+
+        if(filter != null) {
+            if(!string.IsNullOrEmpty(filter.Number)) query = query.Where(query => query.Number.ToLower().Contains(filter.Number.ToLower()));
+        }
+
+        switch(sortBy) {
+            case "createdAt":
+                query = isDescending ? query.OrderByDescending(s => s.CreatedAt) : query.OrderBy(s => s.CreatedAt);
+                break;
+            case "number":
+            default:
+                query = isDescending ? query.OrderByDescending(s => s.Number) : query.OrderBy(s => s.Number);
+                break;
+        }
+
+        return query;
     }
 }
