@@ -1,9 +1,10 @@
 <div class="main">
+  <p-toast />
   <h2 class="title">Developer InBev Login</h2>
   <div class="login">  
     <p-floatlabel variant="on" class="login-input">
-      <input pInputText id="username" [(ngModel)]="username" autocomplete="off" />
-      <label for="username">Username</label>
+      <input pInputText id="email" [(ngModel)]="email" autocomplete="off" />
+      <label for="email">Email</label>
     </p-floatlabel>
     <p-floatlabel variant="on" class="login-input">
       <p-password [(ngModel)]="password" inputId="password" [feedback]="false"/>

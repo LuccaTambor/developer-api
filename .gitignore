@@ -364,4 +364,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignore cache created with the Angular CLI.
-template/frontend/.angular/
+**/.angular/
