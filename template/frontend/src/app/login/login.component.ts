@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -21,6 +21,7 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
   private messageService = inject(MessageService);
   private authService = inject(AuthService);
+  private router = inject(Router);
   email = '';
   password = ''
 
@@ -28,6 +29,7 @@ export class LoginComponent {
     await this.authService.login(this.email, this.password)
       .then((result) => {
         this.authService.saveUserToken(result.data.data.token);
+        this.router.navigateByUrl('home');
       })
       .catch(() => {
         this.messageService.add({ severity: 'error', summary: 'Login Error', detail: 'Wrong email or password'})

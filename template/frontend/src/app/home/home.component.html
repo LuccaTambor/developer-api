@@ -1,0 +1,27 @@
+<div class="main">
+  <p-menubar [model]="items" />
+
+  <h2 class="title"> Sales table </h2>
+  <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }" s>
+    <ng-template #header>
+        <tr>
+            <th>Number</th>
+            <th>Branch</th>
+            <th>Total</th>
+            <th>Total Discount</th>
+            <th>CustomerId</th>
+            <th>Created On</th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-sale>
+        <tr>
+            <td>{{ sale.number }}</td>
+            <td>{{ sale.branch }}</td>
+            <td>{{ sale.total }}</td>
+            <td>{{ sale.totalDiscount }}</td>
+            <td>{{ sale.customerId }}</td>
+            <td>{{ sale.createdAt }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+</div>
