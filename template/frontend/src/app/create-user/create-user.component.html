@@ -1,0 +1,34 @@
+<div class="main">
+  <form class="create-user" #createUserForm="ngForm" (ngSubmit)="onSubmit()">
+    <h2 class="title">New User Registration</h2>
+    <p-floatlabel variant="on" class="form-input">
+      <input pInputText name="username" id="username" [(ngModel)]="newUser.username" autocomplete="off" required>
+      <label for="username">Username</label>
+    </p-floatlabel>
+    <p-floatlabel variant="on" class="form-input">
+      <input pInputText name="email" id="email" [(ngModel)]="newUser.email" autocomplete="off" required/>
+      <label for="email">Email</label>
+    </p-floatlabel>
+    <p-floatlabel variant="on" class="form-input">
+      <input pInputText name="phone" id="phone" [(ngModel)]="newUser.phone" autocomplete="off" required/>
+      <label for="phone">Phone</label>
+    </p-floatlabel>
+    <div class="form-input">
+      <p-select [options]="roles" [(ngModel)]="newUser.role" optionLabel="name" optionValue="code" placeholder="Select a Role" class="w-full md:w-56" name="role" id="role" required/>
+    </div>
+    <p-floatlabel variant="on" class="form-input">
+      <p-password [(ngModel)]="newUser.password" inputId="password" name="password" id="password" required/>
+      <label for="password">Password</label>
+    </p-floatlabel>
+    <p-floatlabel variant="on" class="form-input">
+      <p-password [(ngModel)]="confirmPassword" inputId="confirm-password" name="confirm-password" feedback="false" id="confirm-password" required/>
+      <label for="confirm-password">Confirm Password</label>
+    </p-floatlabel>
+    <div class="actions">
+      <p-button type="submit" class="btn btn-success">Create</p-button>
+      <a class="p-button-link" [routerLink]="['/login']">
+        Return
+      </a>
+    </div>  
+  </form>
+</div>

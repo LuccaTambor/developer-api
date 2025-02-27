@@ -12,7 +12,9 @@
     </p-floatlabel>
     <div class="actions">
       <p-button label="Login" (onClick)="login()" />
-      <p-button label="Create user" variant="text" />
+      <a routerLink="create-user" class="p-button-link" [routerLink]="['/create-user']">
+        Create User
+      </a>
     </div>   
   </div>
 </div>

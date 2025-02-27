@@ -4,22 +4,26 @@
   padding: 0;
 }
 
-.login {
+.create-user {
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
 
-  & .actions {
+  & .form-input {
+    margin-bottom: 1rem;
+    
+    & input, p-select, p-password {
+      width: 400px;
+    }   
+  }
+
+  .actions {
     text-align: center;
 
-    & a {
-      margin-left: 1rem;
+    & p-button {
+      margin-right: 20px;
     }
   }
-}
-
-.login-input {
-  margin-bottom: 1rem;
 }
 
 .title {

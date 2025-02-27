@@ -8,11 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { error } from 'console';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [InputTextModule, InputOtpModule, FormsModule, PasswordModule, FloatLabelModule, ButtonModule, ToastModule],
+  imports: [InputTextModule, InputOtpModule, FormsModule, PasswordModule, FloatLabelModule, ButtonModule, ToastModule, RouterLink],
   providers: [MessageService],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less'
