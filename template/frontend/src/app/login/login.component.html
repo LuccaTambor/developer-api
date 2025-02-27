@@ -1,0 +1,22 @@
+<div class="main">
+  <p-toast />
+  <h2 class="title">Developer InBev Login</h2>
+  <div class="login">  
+    <p-floatlabel variant="on" class="login-input">
+      <input pInputText id="email" [(ngModel)]="email" autocomplete="off" />
+      <label for="email">Email</label>
+    </p-floatlabel>
+    <p-floatlabel variant="on" class="login-input">
+      <p-password [(ngModel)]="password" inputId="password" [feedback]="false"/>
+      <label for="password">Password</label>
+    </p-floatlabel>
+    <div class="actions">
+      <p-button label="Login" (onClick)="login()" />
+      <a routerLink="create-user" class="p-button-link" [routerLink]="['/create-user']">
+        Create User
+      </a>
+    </div>   
+  </div>
+</div>
+
+
